@@ -1,7 +1,12 @@
-import React from 'react';
+import UserResult from '../users/UserResult';
 
 const Home = () => {
-  return <div>Home</div>;
+  return (
+    <div>
+      {/* SEARCH COMPONENT */}
+      <UserResult />
+    </div>
+  );
 };
 
 export default Home;
