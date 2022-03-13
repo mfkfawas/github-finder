@@ -1,9 +1,10 @@
 import UserResult from '../users/UserResult';
+import UserSearch from '../users/UserSearch';
 
 const Home = () => {
   return (
     <div>
-      {/* SEARCH COMPONENT */}
+      <UserSearch />
       <UserResult />
     </div>
   );
