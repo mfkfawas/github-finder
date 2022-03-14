@@ -3,6 +3,7 @@ import { ErrorMessage, Formik } from 'formik';
 import * as Yup from 'yup';
 
 import GithubContext from '../../context/github/GithubContext';
+import AlertContext from '../../context/alert/AlertContext';
 
 const validationSchema = Yup.object({
   search: Yup.string()
