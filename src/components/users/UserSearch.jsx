@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 import { ErrorMessage, Formik } from 'formik';
+import { motion, AnimatePresence } from 'framer-motion';
 import * as Yup from 'yup';
 
 import GithubContext from '../../context/github/GithubContext';
-import AlertContext from '../../context/alert/AlertContext';
 
 const validationSchema = Yup.object({
   search: Yup.string()
@@ -61,11 +61,34 @@ const UserSearch = () => {
                   Go
                 </button>
                 {touched.search && errors.search && (
-                  <ErrorMessage
-                    component='div'
-                    name='search'
-                    className='error'
-                  />
+                  <AnimatePresence>
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 0.9 }}
+                      exit={{ opacity: 0 }}
+                    >
+                      <p className='flex items-center my-4 space-x-1'>
+                        <svg
+                          xmlns='http://www.w3.org/2000/svg'
+                          className='stroke-current flex-shrink-0 h-6 w-6'
+                          fill='none'
+                          viewBox='0 0 24 24'
+                        >
+                          <path
+                            strokeLinecap='round'
+                            strokeLinejoin='round'
+                            strokeWidth='2'
+                            d='M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z'
+                          />
+                        </svg>
+                        <ErrorMessage
+                          component='span'
+                          name='search'
+                          className='flex-1 text-base font-semibold leading-7 text-white'
+                        />
+                      </p>
+                    </motion.div>
+                  </AnimatePresence>
                 )}
               </div>
             </div>
