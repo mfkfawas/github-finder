@@ -27,6 +27,7 @@ const UserSearch = () => {
         dispatch({
           type: 'SET_LOADING',
         });
+
         const users = await searchUsers(data.search);
 
         dispatch({
