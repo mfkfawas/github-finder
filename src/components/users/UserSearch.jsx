@@ -3,6 +3,7 @@ import { ErrorMessage, Formik } from 'formik';
 import { motion, AnimatePresence } from 'framer-motion';
 import * as Yup from 'yup';
 
+import { searchUsers } from '../../context/github/GithubActions';
 import GithubContext from '../../context/github/GithubContext';
 
 const validationSchema = Yup.object({
@@ -12,8 +13,7 @@ const validationSchema = Yup.object({
 });
 
 const UserSearch = () => {
-  const { users, searchUsers, clearUsers } =
-    useContext(GithubContext);
+  const { dispatch, users } = useContext(GithubContext);
 
   return (
     <Formik
@@ -21,10 +21,18 @@ const UserSearch = () => {
         search: '',
       }}
       validationSchema={validationSchema}
-      onSubmit={(data, { setSubmitting, resetForm }) => {
+      onSubmit={async (data, { setSubmitting, resetForm }) => {
         setSubmitting(true);
 
-        searchUsers(data.search);
+        dispatch({
+          type: 'SET_LOADING',
+        });
+        const users = await searchUsers(data.search);
+
+        dispatch({
+          type: 'GET_USERS',
+          payload: users,
+        });
 
         setSubmitting(false);
 
@@ -100,7 +108,7 @@ const UserSearch = () => {
             <div>
               <button
                 className='btn btn-ghost btn-lg'
-                onClick={clearUsers}
+                onClick={() => dispatch({ type: 'CLEAR_USERS' })}
               >
                 Clear
               </button>
